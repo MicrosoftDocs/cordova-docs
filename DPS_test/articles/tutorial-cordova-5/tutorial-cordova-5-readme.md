@@ -263,12 +263,3 @@ You can follow these steps to use Cordova Windows 10 with Visual Studio:
 	![Select Cordova Version](media/tutorial-cordova-5-readme/cordova-5-8.png)
 
 That's it! Underneath the convers Cordova will switch from an 8.1 project to a new Universal App project and take care of the rest! Just use the "Debug" dropdown to deploy to a Windows 10 device, use your Windows 10 PC, or use a Windows 10 emulator.
-
-## More Information
-* [Learn about security features in Apache Cordova 5](./cordova-5-security.md)
-* [Read tutorials and learn about tips, tricks, and known issues](../cordova-docs-readme.md)
-* [Download samples from our Cordova Samples repository](http://github.com/Microsoft/cordova-samples)
-* [Follow us on Twitter](https://twitter.com/VSCordovaTools)
-* [Visit our site http://aka.ms/cordova](http://aka.ms/cordova)
-* [Ask for help on StackOverflow](http://stackoverflow.com/questions/tagged/visual-studio-cordova)
-* [Email us your questions](mailto:/vscordovatools@microsoft.com)
