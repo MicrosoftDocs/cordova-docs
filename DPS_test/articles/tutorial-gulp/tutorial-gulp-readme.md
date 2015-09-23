@@ -12,3 +12,12 @@
 1.  [Using Gulp to Build Cordova Projects](http://go.microsoft.com/fwlink/?LinkID=533742) - Includes information on using Gulp in a Team / CI Environment
 2.  [Invoking Gulp Tasks During a Cordova Build and the VS Task Runner Explorer](http://go.microsoft.com/fwlink/?LinkID=533768)
 3.  [Compiling TypeScript](http://go.microsoft.com/fwlink/?LinkID=533769)
+
+## More Information
+* [Read tutorials and learn about tips, tricks, and known issues](../cordova-docs-readme.md)
+* [Download samples from our Cordova Samples repository](http://github.com/Microsoft/cordova-samples)
+* [Follow us on Twitter](https://twitter.com/VSCordovaTools)
+* [Visit our site http://aka.ms/cordova](http://aka.ms/cordova)
+* [Read MSDN docs on using Visual Studio Tools for Apache Cordova](http://go.microsoft.com/fwlink/?LinkID=533794)
+* [Ask for help on StackOverflow](http://stackoverflow.com/questions/tagged/visual-studio-cordova)
+* [Email us your questions](mailto:/vscordovatools@microsoft.com)

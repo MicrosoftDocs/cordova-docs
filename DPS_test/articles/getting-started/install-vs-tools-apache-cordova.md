@@ -26,7 +26,7 @@ Operating system requirements:
     > **Important:** If you are using Windows 7, you can develop apps for Android and iOS, but not for Windows or Windows Phone.
 To build apps for specific device platforms, there are a few additional requirements:
 
-* iOS and the iOS Simulator require a Mac computer capable of running [Xcode 6](https://developer.apple.com/xcode/). For additional information and installation steps, 
+* iOS and the iOS Simulator require a Mac computer capable of running [Xcode 6](https://developer.apple.com/xcode/) (Xcode 6 is recommended). For additional information and installation steps, 
 * see [Install tools for iOS](#ios).
 
     >**Tip:** If you want to build iOS on a cloud service instead of Mac hardware, see [Build and Simulate iOS in the Cloud](build_ios_cloud.md).
@@ -111,7 +111,7 @@ You must also have the following:
 
 * An active iOS Developer Program account with Apple
 
-* An iOS provisioning profile configured in Xcode (download the provisioning profile and run the downloaded `*.mobileprovision` file).
+* An iOS provisioning profile configured in Xcode (download the provisioning profile and run the downloaded ``*.mobileprovision` file).
 
     > **Note:** For detailed information, read the [Maintaining Your Signing Identities and Certificates](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates.html) in the iOS Developer Library.
 
@@ -124,6 +124,7 @@ You must also have the following:
 1. From the Terminal app on your Mac, type:
 
     ```
+  sudo npm install –g npm
   sudo npm install -g remotebuild
   sudo npm install –g ios-sim@3.1.1
   ```
