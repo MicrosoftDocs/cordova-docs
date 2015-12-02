@@ -36,13 +36,13 @@ In this example we'll start a gulp task in Visual Studio whenever a project is b
 
 2. Create a **[package.json](http://go.microsoft.com/fwlink/?LinkID=533781)** file in your project root if it doesn't exist. In this file, reference the version of gulp you want to use:
 
-    ```json
-    {
-      "devDependencies": {
-     	"gulp": "latest"
-       }
-    }
-    ```
+	```json
+	{
+	  "devDependencies": {
+	 	"gulp": "latest"
+	   }
+	}
+	```
 
 ### <a Name="install-plugins"></a>Install gulp plugins
 
@@ -50,15 +50,15 @@ Gulp itself doesn't do much without plugins to control individual tasks. For thi
 
 To add a plugin, first add a reference to package.json (the ~ before a version number means "at least this version"):
 
-    ```json	
-    {
-      "devDependencies": {
-     	"gulp": "latest",
-		"gulp-uglify": "~1.5.1",
-		"gulp-concat": "~2.6.0"
-       }
-    }
-    ```
+```json	
+{
+  "devDependencies": {
+ 	"gulp": "latest",
+	"gulp-uglify": "~1.5.1",
+	"gulp-concat": "~2.6.0"
+   }
+}
+```
 
 Then install those dependencies from either the command line or Visual Studio:
 
@@ -76,12 +76,12 @@ With gulp and the necessary plugins installed, we can now define a task to run g
 
 1. Create a **gulpfile.js** file in the project root and add a task. Each task is a call to *gulp.task* with a name and a callback that carries out the task: 
     
-    ```javascript
-    var gulp = require("gulp");  // Instruct Node.js to load gulp
- 
-    gulp.task("combine-and-uglify", function() {
- 	   // Code to execute for this task
-    });
+	```javascript
+	var gulp = require("gulp");  // Instruct Node.js to load gulp
+	
+	gulp.task("combine-and-uglify", function() {
+		   // Code to execute for this task
+	});
     ```
 
 	> **Note**: do not use spaces in the name of the task, otherwise it won't run and you'll likely be very confused. The reason for this is that each name is passed to gulp as a command-line argument where spaces cause the one name to be interpreted as separate name arguments.
@@ -144,7 +144,7 @@ The Cordova CLI internally uses a node module called **cordova-lib**, which enca
 
 The following **gulpfile.js**, when placed in the root of a Cordova project for **Cordova 5.3.3 and below**, builds a release version of the app for Android:
 
-```typescript
+```javascript
 var gulp = require("gulp"),
     cordova = require("cordova-lib").cordova;
 
@@ -158,7 +158,7 @@ gulp.task("default", function (callback) {
 
 For **Cordova 5.4.0 and up** the syntax is slightly different.
 
-```typescript
+```javascript
 var gulp = require("gulp"),
     cordova = require("cordova-lib").cordova;
 
@@ -219,7 +219,7 @@ The taco-team-build repository includes sample gulpfile.js and package.json file
         }
     ```
 
-     If you want to be able to modify the taco-team-build module instead of using the Github version, remove the dependency in the file above, copy **taco-team-build.js** from GitHub to your project root, and require ```./taco-team-build``` gulpfile.js below.
+    If you want to be able to modify the taco-team-build module instead of using the Github version, remove the dependency in the file above, copy **taco-team-build.js** from GitHub to your project root, and require ```./taco-team-build``` gulpfile.js below.
 
 - **gulpfile.js**
 
@@ -296,54 +296,53 @@ If you're using TypeScript in your Cordova app project, you can use the [gulp-ty
 
 The following gulpfile.js loads the plugin and runs a task to compile all Typescript (***.ts**) files found in the project's *scripts* folder, saving the results in a single file **www/scripts/appBundle.js***:
 
-    ```javascript
-      var ts = require("gulp-typescript");
+```typescript
+  var ts = require("gulp-typescript");
 
-      gulp.task("scripts", function () {
-        // Compile TypeScript code
-        gulp.src("scripts/**/*.ts")
-        	.pipe(ts({
-            	noImplicitAny: false,
-                noEmitOnError: true,
-                removeComments: false,
-            	sourceMap: true,
-                out: "appBundle.js",
-                target: "es5"
-    		}))
-    		.pipe(gulp.dest("www/scripts"));
-    });
-     ```    
+  gulp.task("scripts", function () {
+    // Compile TypeScript code
+    gulp.src("scripts/**/*.ts")
+    	.pipe(ts({
+        	noImplicitAny: false,
+            noEmitOnError: true,
+            removeComments: false,
+        	sourceMap: true,
+            out: "appBundle.js",
+            target: "es5"
+		}))
+		.pipe(gulp.dest("www/scripts"));
+});
+```    
 
 The options given directly to the *ts* call above can alternately be saved in a **tsconfig.json** file (as done in the Visual Studio templates), in which case you can use the following gulpfile.js:
 
-    ```javascript
-    var ts = require("gulp-typescript"),
-        fs = require("fs"),
-        tsconfigPath = "scripts/tsconfig.json";
+```javascript
+var ts = require("gulp-typescript"),
+    fs = require("fs"),
+    tsconfigPath = "scripts/tsconfig.json";
 
-    gulp.task("scripts", function () {
-        // Compile TypeScript code
-        if (fs.existsSync(tsconfigPath)) {
-            gulp.src("scripts/**/*.ts")
-                .pipe(ts(ts.createProject(tsconfigPath)))
-                .pipe(gulp.dest("www/scripts"));
-        }
-    });
-
-    ```
+gulp.task("scripts", function () {
+    // Compile TypeScript code
+    if (fs.existsSync(tsconfigPath)) {
+        gulp.src("scripts/**/*.ts")
+            .pipe(ts(ts.createProject(tsconfigPath)))
+            .pipe(gulp.dest("www/scripts"));
+    }
+});
+```
 
 To point to multiple locations for TypeScript files in your project, create an array as follows:
 
-    ```
-	   gulp.src(["scripts/**/*.ts","www/typescript/**/*.ts"])
-    ```
+```javascript
+   gulp.src(["scripts/**/*.ts","www/typescript/**/*.ts"])
+```
 
 Finally, to compile TypeScript first as part of a build task, add a reference to the scripts task:
 
-    ```javascript
-        gulp.task("build", ["scripts"], function () {
-        ...
-    ```
+```javascript
+    gulp.task("build", ["scripts"], function () {
+    ...
+```
 
 The **samples/gulp** folder in the [taco-team-build repository](http://go.microsoft.com/fwlink/?LinkID=533736) contains sample **gulpfile.js** and **package.json** files that are already configured to include TypeScript.
 
