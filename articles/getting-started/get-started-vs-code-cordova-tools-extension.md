@@ -3,7 +3,7 @@
    description="Get started with Visual Studio Code and Apache Cordova"
    services="na"
    documentationCenter=""
-   authors="david.salgado"
+   authors="davidsalgado"
    tags=""/>
 <tags
    ms.service="na"
@@ -12,7 +12,7 @@
    ms.tgt_pltfrm="mobile-multiple"
    ms.workload="na"
    ms.date="02/23/2016"
-   ms.author="david.salgado"/>
+   ms.author="davidsalgado"/>
 
 # Get started with Visual Studio Code and Apache Cordova
 
