@@ -365,7 +365,7 @@ If you're not familiar with _JQuery_, it's just a JavaScript library that makes 
     
         ![Downloading JQuery IntelliSense](media/get-started-vs-code-cordova-tools-extension/downloading-jquery-intellisense.png)
         
-    1. After the 'Successful download' confirmation message is displayed JQuery intellisense is ready to be use. Type ```.``` and see it in action:
+    1. After the 'Successful download' confirmation message is displayed JQuery intellisense is ready to be used. Type ```.``` and see it in action:
     
          ![Using JQuery IntelliSense](media/get-started-vs-code-cordova-tools-extension/using-jquery-intellisense.png)
          
