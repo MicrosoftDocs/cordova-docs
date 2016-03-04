@@ -16,8 +16,6 @@
 
 # Get started with Visual Studio Code and Apache Cordova
 
-[Apache Cordova](https://cordova.apache.org/) is an open-source development framework that allows you to use standard web technologies such as HTML5, CSS3, and JavaScript for cross-platform development, avoiding each mobile platforms' native development language. Applications execute within wrappers targeted to each platform, and rely on standards-compliant API bindings to access each device's sensors, data, and network status. 
-
 [Visual Studio Code](https://code.visualstudio.com/) is a lightweight open-source code editor developed by Microsoft for Windows, Linux and OS X operating systems. It allows the developers to build and debug applications in multiple languages with rich code assistance. It is also expandable through [extensions](https://code.visualstudio.com/docs/editor/extension-gallery). The source code can be found in [GitHub](https://github.com/Microsoft/vscode), where you can contribute with fixes and features.
 
 One of the extensions available for Visual Studio Code are the Cordova Tools Extension. These tools are also open-source and can be found in this [GitHub repository](https://github.com/Microsoft/vscode-cordova).
@@ -223,10 +221,18 @@ If you're not familiar with _JQuery_, it's just a JavaScript library that makes 
     -   To download the libraries files to the corresponding location, run the following commands in the Terminal (it must be pointing to your project's root directory):
 
         ```bash
+        curl -o www/js/jquery-x.x.x.min.js http://code.jquery.com/jquery-x.x.x.min.js
+        curl -o www/js/jquery.mobile-x.x.x.min.js http://code.jquery.com/mobile/1.4.5/jquery.mobile-x.x.x.min.js
+        curl -o www/css/jquery.mobile-x.x.x.min.css http://code.jquery.com/mobile/1.4.5/jquery.mobile-x.x.x.min.css
+        ```
+        
+        Replace the ```x.x.x``` in these filenames with the latest version of the libraries. For example, if the latest version of jQuery is ```2.2.1```, and jQuery mobile is ```1.4.5```, your command would look like this:
+
+        ```bash
         curl -o www/js/jquery-2.2.1.min.js http://code.jquery.com/jquery-2.2.1.min.js
         curl -o www/js/jquery.mobile-1.4.5.min.js http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js
         curl -o www/css/jquery.mobile-1.4.5.min.css http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css
-        ```
+        ```        
 
     -   If you want to do it manually, follow these instructions:
 
@@ -234,9 +240,11 @@ If you're not familiar with _JQuery_, it's just a JavaScript library that makes 
 
         1.  Download the _JQuery mobile_ latest zipped version from [here](https://jquerymobile.com/download/) and extract the following files:
             
-            - jquery.mobile-1.4.5.min.js to the **js** subfolder of your **www** folder.
+            - jquery.mobile-x.x.x.min.js to the **js** subfolder of your **www** folder.
             
-            - jquery.mobile-1.4.5.min .css to the **css** subfolder of your **www** folder.
+            - jquery.mobile-x.x.x.min .css to the **css** subfolder of your **www** folder.
+            
+            Replace ```x.x.x``` with the latest version of the _Jquery mobile_ library, for example ```1.4.5```.
     
     After adding the references the **www** folder structure should resemble the following:
     
@@ -247,11 +255,24 @@ If you're not familiar with _JQuery_, it's just a JavaScript library that makes 
 1.  Add this script reference to the `<body>` tag, at the bottom of the body section, where the other JavaScript references are located:
 
     ```html
+    <script type="text/javascript" src="js/jquery-x.x.x.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-x.x.x.min.js"></script>
+    ```
+    
+    Replace the ```x.x.x``` in these filenames with the versions that you've downloaded. For example, if you downloaded jQuery version ```2.2.1```, and jQuery mobile version ```1.4.5```, your references would look like this:
+
+    ```html
     <script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
     ```
 
 1.  And this style reference to the `<head>` tag, above the existing **index.css** reference:
+
+    ```html
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-x.x.x.min.css" />
+    ```
+    
+    As you did in the previous example, replace ```x.x.x.``` with the version of JQuery mobile that you downloaded. If you downloaded jQuery mobile version ```1.4.5```, your reference would look like this:
 
     ```html
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
@@ -355,7 +376,7 @@ If you're not familiar with _JQuery_, it's just a JavaScript library that makes 
     $('#get-weather-btn').click(WeatherApp.getWeather);
 	```
 
-    This code refers to the ID of the ```Get Weather``` button on the HTML page and it's used to handle the `click` event by passing in the name of a function (_getWeather_). That function will be added shortly.
+    This code refers to the ID of the ```Get Weather``` button on the HTML page and handles the `click` event by passing in the name of a function (_getWeather_). That function will be added shortly.
     
     Notice that JavaScript IntelliSense is provided out of the box with VS Code (as well as HTML, CSS, JSON, among others). Just hit ```Ctrl+Space``` in any JS file to use it. JQuery type definition has to be downloaded to enable JQuery IntelliSense.
     
@@ -435,7 +456,6 @@ Now you will add the *getWeather* function to handle button's ```click``` event.
 
             return false;
         }
-        
     })($, WeatherApp, navigator);
 	```
 
@@ -460,7 +480,7 @@ Now you will add the *getWeather* function to handle button's ```click``` event.
     <script type="text/javascript" src="js/weather.js"></script>
 	```
 
-1. Add ```https://query.yahooapis.com```, ```http://gws2.maps.yahoo.com``` and ```http://l.yimg.com``` to the page's Content Security Policy (CSP). The CSP is just a line of HTML that is located inside of the ```<head>``` used to declare approved origins of content that browsers should be allowed to load on your website. It looks like this:
+1. Add ```https://query.yahooapis.com```, ```http://gws2.maps.yahoo.com``` and ```http://l.yimg.com``` to the page's Content Security Policy (CSP). The CSP is just a line of HTML that is located inside of the ```<head>```. Use it to declare approved origins of content that browsers should be allowed to load on your website. It looks like this:
 
     ```html
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
@@ -472,7 +492,7 @@ Now you will add the *getWeather* function to handle button's ```click``` event.
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com https://query.yahooapis.com http://gws2.maps.yahoo.com http://l.yimg.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
     ```
     
-    > **Note:** Content Security Policy (CSP) is a computer security standard introduced to prevent cross-site scripting (XSS), clickjacking and other code injection attacks resulting from execution of malicious content in the trusted web page context. For more information visit http://content-security-policy.com/
+    > **Note:** Content Security Policy (CSP) is a computer security standard introduced to prevent cross-site scripting (XSS), clickjacking and other code injection attacks resulting from execution of malicious content in the trusted web page context. You can read more about it here: http://content-security-policy.com/
 
 1. Press ```F5``` to start the debugger. You will see the app deployed in your iOS emulator:
 
@@ -601,7 +621,7 @@ Follow these instructions to add a plugin that gives you access to the device's 
     }
     ```
 
-    This code uses the device's geolocation capability to get the latitude and longitude of the device's location. With that data it gets a zip code for that location and then populate the input box with that zip code:
+    This code uses the device's geolocation capability to get the latitude and longitude of the device's location. It then uses the latitude and longitude to get a zip code for that location and then populate the input box of your app with that zip code:
 
 1.  Open the **index.js** file, and add the following code to the `onDeviceReady` function:
 
@@ -662,7 +682,7 @@ As the *merges* folder is not included in the default Cordova folder structure i
 
     ![Tailor the appearance](media/get-started-vs-code-cordova-tools-extension/tailor-css.png)
 
-    Notice that this is just a simple example of what can be achieved using the *merges* folder. A more effective approach would be using a separate css file for platform-specific styles.
+    Notice that this is just a simple example of what can be achieved using the *merges* folder. A more effective approach would be to use a separate css file for platform-specific styles.
 
 
 ## <a id="troubleshooting"></a>Troubleshooting
