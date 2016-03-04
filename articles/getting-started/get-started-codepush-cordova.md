@@ -20,7 +20,7 @@
 
 CodePush provides two different tools:
 
-- [Management CLI](http://microsoft.github.io/code-push/docs/cli.html): NodeJS-based CLI used to manage your CodePush suscription. You can use this tool to create a CodePush account and to create and manage your app updates.
+- [Management CLI](http://microsoft.github.io/code-push/docs/cli.html): NodeJS-based CLI used to manage your CodePush subscription. You can use this tool to create a CodePush account and to create and manage your app updates.
 
 - Client SDK: Used to add CodePush integration to your mobile app. Use the [Cordova Plugin for CodePlush](http://microsoft.github.io/code-push/docs/cordova.html) to integrate CodePush in a Cordova application. Check the [CodePlush documentation](http://microsoft.github.io/code-push/docs/getting-started.html) for integration with other client application types.
 
@@ -77,7 +77,7 @@ Before you can release any updates you need to create a CodePush account and reg
         code-push login
         ```
         
-        > **Note:** When you login from the CLI, your access token (similar to a cookie) is persisted to disk so that you don’t have to login everytime you attempt to access your account. In order to delete this file from your computer, simply run the following command:
+        > **Note:** When you login from the CLI, your access token (similar to a cookie) is persisted to disk so that you don’t have to login every time you attempt to access your account. In order to delete this file from your computer, simply run the following command:
         >
         >```shell
         >code-push logout
@@ -98,7 +98,7 @@ Before you can release any updates you need to create a CodePush account and reg
     
     Take note of the keys returned. For this guide you will use the **Staging** key. 
     
-1. Get the the sample Weather App. This app is explained in greater detail in the [Visual Studio Code and Cordova getting started](get-started-vs-code-cordova-tools-extension.md) document. It will be used through this guide to show how CodePush can be integrated in an existing application.
+1. Get the sample Weather App. This app is explained in greater detail in the [Visual Studio Code and Cordova getting started](get-started-vs-code-cordova-tools-extension.md) document. It will be used through this guide to show how CodePush can be integrated in an existing application.
 
     1. Download the **WeatherApp** code from [here](https://github.com/Microsoft/cordova-samples/tree/master/weather-app/WeatherApp) to a local folder. If you cloned the entire repo, find the project folder in ```weather-app/WeatherApp```.
     
@@ -116,7 +116,7 @@ Before you can release any updates you need to create a CodePush account and reg
 
 ## <a id="prepare"></a>Prepare your app
 
-The next step to send application updates to the the users' devices using CodePush is to implement the CodePush SDK in your app.   
+The next step to send application updates to the users' devices using CodePush is to implement the CodePush SDK in your app.   
 
 1. Open a Terminal located at your Cordova application's root folder.
 
@@ -258,7 +258,7 @@ Now that the first version of your app with CodePush has been deployed to your c
     
     As you just created the deployment, there are no installs recorded.
     
-1. Switch to the simulator where you deployed the first version of the app and open it. When the app is initialized, a call to the CodePush server is performed. It detects that a new version is available and downloads it. By default, new versions are installed on the next restart, so you won't see the changes until you restart the application on the simuator/device. 
+1. Switch to the simulator where you deployed the first version of the app and open it. When the app is initialized, a call to the CodePush server is performed. It detects that a new version is available and downloads it. By default, new versions are installed on the next restart, so you won't see the changes until you restart the application on the simulator/device. 
 
 1. Check the status of the deployment by running the same command:
 
@@ -272,7 +272,7 @@ Now that the first version of your app with CodePush has been deployed to your c
     
     > **Note:** Installation mode can be changed by passing options to the ```sync``` method. Refer to the [API documentation](http://microsoft.github.io/code-push/docs/cordova.html#syncoptions) for more information.
     
-1. Restart the application in the simulator/device. You will see that the app has been updated to the new version (v1 should bd displayed in the title):
+1. Restart the application in the simulator/device. You will see that the app has been updated to the new version (v1 should be displayed in the title):
 
     ![New version deployed](media/get-started-codepush-cordova/new-version-deployed.png)
 
@@ -392,9 +392,9 @@ For this example, the Weather app footer will be used to show information about 
     
 ## <a id="next-steps"></a>Next Steps
 
-You've finished deploying mobile app updates using CodePush, applying both the default and custom behaviors. The following list contatins a set of resources you can explore to get a better understanding of the service:
+You've finished deploying mobile app updates using CodePush, applying both the default and custom behaviors. The following list contains a set of resources you can explore to get a better understanding of the service:
 
-- A more Advanced Cordova CodePush Sample application, showing how to implement a more complex update experience, including promting the user to install the update: See [Cordova CodePush Sample App - Advanced](https://github.com/Microsoft/cordova-plugin-code-push/tree/master/samples/advanced)
+- A more Advanced Cordova CodePush Sample application, showing how to implement a more complex update experience, including prompting the user to install the update: See [Cordova CodePush Sample App - Advanced](https://github.com/Microsoft/cordova-plugin-code-push/tree/master/samples/advanced)
 
 - Work with other developers on the same CodePush app: See [App Collaboration](http://microsoft.github.io/code-push/docs/cli.html#app-collaboration) 
 
