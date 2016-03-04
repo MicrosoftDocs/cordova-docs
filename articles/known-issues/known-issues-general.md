@@ -30,7 +30,7 @@ See [Safely update Node.js](./develop-apps/change-node-version.md) and [Change t
 
 The “Solution Platform” dropdown might not appear in the toolbar when upgrading Visual Studio 2013 from a previous version to Update 4. You can add using the “Standard Toolbar Options” drop-down as described in [Microsoft Support article 2954109](http://support.microsoft.com/kb/2954109).
 
-##**Building a Cordova project from source control results in Cordova plugin APIs not returning results**
+##**Building a Cordova project from source control results in Cordova plugin APIs not returning Results**
 
 The following four json files can cause this to occur if added to source control.
 

@@ -1,29 +1,33 @@
-<properties pageTitle="Using Apache Cordova 5"
-  description="Using Apache Cordova 5"
+<properties pageTitle="Using Apache Cordova 5 & 6"
+  description="Using Apache Cordova 5 & 6"
   services=""
   documentationCenter=""
   authors="Chuxel" />
 
-# Using Apache Cordova 5
+# Using Apache Cordova 5 & 6
 If the default blank template in Visual Studio 2015 does not default to 5.1.1, you should update Tools for Apache Cordova.
 
 If your a very early adopter, you might not see some of the improvements described in this document until after you update the tools. You will soon see a notification in the notification center (flag in the upper right) prompting you to update.
 
-The tools for Apache Cordova RTM have been tested with both Cordova 4.3.1 and Cordova 5.1.1. As the major version number increase implies, [Apache Cordova 5](http://cordova.apache.org/docs/en/5.1.1/index.html) is a departure from 3.x and 4.x versions of Cordova in a number of very important ways. There were a number of issues with Cordova 5.0.0 itself that kept us from recommending its use including an [Android security issue](http://go.microsoft.com/fwlink/?LinkID=617658). As a result, we strongly recommend the use of **Cordova 5.1.1** with **Visual Studio 2015 RTM** and up.
+The Tools for Apache Cordova RTM have been tested with both Cordova 4.3.1 and Cordova 5.1.1 with subsequent updates being tested against more recent versions of Cordova including 6.0.0. 
 
-You can update your project to use Cordova 5.1.1 by following these steps:
+As the major version number increase implies, [Apache Cordova 5](http://cordova.apache.org/docs/en/5.1.1/index.html) is a departure from 3.x and 4.x versions of Cordova in a number of very important ways. There were a number of issues with Cordova 5.0.0 itself that kept us from recommending its use including an [Android security issue](http://go.microsoft.com/fwlink/?LinkID=617658).
+
+**Cordova 6.0.0** adds in support for **Android Marshmallow** which forced some changes to Cordova itself along with breaking changes in plugins. The latest versions of a number of plugins now require Cordova 6.0.0 (Cordova Android 5.0.0+). **You should move your projects to Cordova 6.0.0** as soon as is feasible for plugin compatibility and Marshmallow support when targeting Android.
+
+You can update your project to use Cordova 5 or 6 by following these steps:
 
 1. Double click on config.xml.
 
 2. Select the "Platforms" left navigation tab.
 
-3. Change the version number to 5.1.1 and save config.xml.
+3. Change the version number to 5.1.1 or higher and save config.xml.
 
 	![Select Cordova Version](media/tutorial-cordova-5-readme/cordova-5-0.png)
 
     When you build, this will **automatically remove any existing contents in the platforms folder in the filesystem**. If you have opted to customize the native project, you should consider migrating your custom assets to the **res/native** folder (ex: res/native/android) which will automatically add the files to the project before preparing the Cordova project to build.
 
-    However, you'll want to exercise care here since **Android in particular has undergone significant revisions in Cordova 5.** The remainder of this article will highlight these updates, and cover tips for adapting your existing apps to these changes.
+    However, you'll want to exercise care here since **Android in particular has undergone significant revisions in Cordova 5 and 6.0.0 has introduced additional changes.** The remainder of this article will highlight these updates, and cover tips for adapting your existing apps to these changes.
 
 ### A Note on Cordova Version Numbers
 Historically Cordova and all its components have used one unified version number. This was particularly true with Cordova versions prior to 3.0.0. This changed when Cordova 4.0.0 was released but most end users were never exposed to this difference. With the release of Cordova 5.0.0, you may also see reference to the release of "Cordova Android 4.0.0". This does not refer to the top level Cordova version but instead the **platform** version. You can think of a platform in many ways as a native project generator combined with a set of scripts designed to build the app.
@@ -34,7 +38,7 @@ Understanding these differences can be important when reading blog posts or upda
 
 - **Cordova CLI 5.1.1** is largely equivalent to Cordova 5.1.1 but is specifically referring to the [Cordova CLI npm package](http://go.microsoft.com/fwlink/?LinkID=617660).
 
-- **Platform versions** follow a different numbering scheme. A given Cordova CLI version "pins" a set of platform versions by default because all testing for the release was done using this specific combination of components. The Cordova OSS project does not typically back-test earlier versions of the CLI with newer platforms unless specifically noted in the release notes. You will typically see these platform versions mentioned in a form similar to "Cordova Android 4.0.0". This naming scheme inherits its name from the [cordova-android](http://go.microsoft.com/fwlink/?LinkID=617662) and other similarly named npm packages that are installed when the platform is added to your project. Visual Studio will automatically perfom this "platform add" operation on your behalf but you may notice a version number like this in the Output Window when you build.
+- **Platform versions** follow a different numbering scheme. A given Cordova CLI version "pins" a set of platform versions by default because all testing for the release was done using this specific combination of components. The Cordova OSS project does not typically back-test earlier versions of the CLI with newer platforms unless specifically noted in the release notes. You will typically see these platform versions mentioned in a form similar to "Cordova Android 4.0.0". This naming scheme inherits its name from the [cordova-android](http://go.microsoft.com/fwlink/?LinkID=617662) and other similarly named npm packages that are installed when the platform is added to your project. Visual Studio will automatically perform this "platform add" operation on your behalf but you may notice a version number like this in the Output Window when you build.
 
 	The following Cordova platform are pinned in **Cordova CLI 5.1.1** (or [see here](http://go.microsoft.com/fwlink/?LinkID=617667) for a complete list):
 
@@ -46,6 +50,26 @@ Understanding these differences can be important when reading blog posts or upda
 Other components are also versioned independently, but typically you will not be directly exposed to them. It is the release of Cordova Android 4.0.0 that triggered the major version increase for Cordova as a whole given it had a number of breaking changes. Windows 4.0.0 is also a major release that includes Windows 10 support but was designed to not have breaking changes when building for Windows or Windows Phone 8.1.
 
 Note that you can actually add different platform versions to your project for a given CLI version through the use of some XML elements or command line options for edge case scenarios. See the [May 26th, 2015 Android Cordova Platform Security Issue](../tips-and-workarounds/android/security-05-26-2015/tips-and-workarounds-android-security-05-26-2015-readme.md) article for a specific example of how this works.
+
+### Android Plugin Breaking Changes Caused by Cordova 6.0.0 / Cordova Android 5.0.0
+Android Marshmallow introduced new security features that have resulted in breaking changes to Cordova itself and by extension core plugins including:
+
+- cordova-plugin-camera
+- cordova-plugin-geolocation
+- cordova-plugin-contacts
+- cordova-plugin-file
+- cordova-plugin-media
+
+As a result, in general we recommend moving to Cordova 6.0.0 or higher when targeting Android. Installing any of these plugins with an earlier version may result in a message telling you that Cordova Android 5.0.0 or higher is required. Switching to Cordova 6.0.0 will resolve this problem.
+
+If you need to stay on an earlier version of Cordova, you may need to install an earlier version of the plugin from the command line as follows from your project directory:
+
+```
+npm install -g cordova@5.4.1
+cordova plugin add cordova-plugin-camera@^1.2.0
+```
+
+...replacing the Cordova version and camera plugin Id with the appropriate one for your use case.
 
 <a name="security"></a>
 ## Security Model Changes for Android and iOS
@@ -117,6 +141,80 @@ When you upgrade a project to Cordova 5.0.0+, you will want to take the followin
 
 	3. You may wish to use the Crosswalk WebView plugin when targeting earlier versions of Android as CSP support was not introduced until Android 4.4. See [the section on Crosswalk later in this article](#crosswalk) for additional tips on using Crosswalk.
 
+<a name="crosswalk"></a>
+##Pluggable WebViews and the Crosswalk WebView for Android
+An exciting new development in the Cordova Android platform in Cordova 5 is the support for what are called "pluggable WebViews." What this feature allows you to do is swap out the built in Android WebView with a completely different WebView implementation. This is a significant improvement as the Android browser and thus the WebView is locked at a specific version without the ability to update unless you update the version of the OS on the device. This has changed in the Android OS as of 5.0, but unlike iOS or Windows where devices can opt to upgrade and developers need only concern themselves with a few major versions of the browser, older Android devices are locked at a particular sub-revision of Android (and thus the browser) with no ability to upgrade the device in many cases. The end result has been a vast array of small differences between Android devices.
+
+[Crosswalk](http://go.microsoft.com/fwlink/?LinkID=617678) is a project that is designed to allow developers to embed a very recent and specific version of the Chromium WebView inside their Android app. The Crosswalk WebView can be embedded in apps running on Android 4.0 and up and brings with it the significant advantage of a consistent WebView implementation across all Android device versions it supports.
+
+There is now a [Cordova Crosswalk plugin](http://go.microsoft.com/fwlink/?LinkID=617679) that takes advantage of the new pluggable WebView features in Cordova 5.0.0+ (and the Cordova Android 4.0.0 platform it uses) and makes it simple to add into your project.
+
+*Note: Because using the Crosswalk plugin does slow down build times given its size, we recommend developers start out building apps with the stock Android WebView on a recent device or emulator (Android 4.4+). You can then add the Crosswalk plugin later in your development cycle and make the necessary adjustments.*
+
+###Installing the Crosswalk Plugin from VS
+To use the Crosswalk WebView plugin from Visual Studio, follow these steps:
+
+1. Double click on config.xml in your project.
+
+2. Click on the **Plugins** tab.
+
+2. Select **Crosswalk WebView** and click **Add**.
+
+    ![Add Crosswalk Plugin](media/tutorial-cordova-5-readme/cordova-crosswalk.png)
+
+The next time you build, your app will be running in the Crosswalk WebView. Note that the first build for Android in particular will take a bit given the plugin does some dynamic acquisition.
+
+###Tips on Using the Crosswalk
+1. If you run into a problem where the Visual Studio **debugger is not attaching** after adding the Crosswalk plugin, you may be encountering an issue with a recent version of Crosswalk.  Crosswalk version 15 is known to work well and you can force this version to be used with a simple preference. Simply add the following to config.xml by right-clicking on the in file in Visual Studio and selecting **View Code**:
+
+	```
+	<preference name="xwalkVersion" value="org.xwalk:xwalk_core_library:15+" />
+	```
+
+
+2. If you are using the **Visual Studio Android Emulator** and encounter an **app crash** on startup, you may be experiencing an incompatibility with a specific version of Crosswalk being added to your project by the plugin and the emulator. Crosswalk version 15 is known to work well and you can force this version to be used with a simple preference. See #1 for details.
+
+4. If you encounter a "Could not create the Java Virtual Machine" error, add the following environment variable to your system and restart VS to bump up Java's heap memory to at least 512M:
+
+	```
+	_JAVA_OPTIONS=-Xmx512M
+	```
+5. Finally, if you are using the standard **Google Android Emulator,** and encounter an **app crash** after adding the Crosswalk plugin, be sure to the **Use Host CPU** option is checked in the AVD that you create, and have up-to-date graphics drivers installed on your system, or the app will crash due to Crosswalk's support of WebGL.
+
+	![Use Host GPU](media/tutorial-cordova-5-readme/cordova-5-1.png)
+
+
+<a name="win10"></a>
+##Windows 10 Support
+Historically, Windows and Windows Phone 8.1 have had a number of compatibility challenges with Cordova apps due to underlying platform differences around security rules. A [JavaScript compatibility](http://go.microsoft.com/fwlink/?LinkID=617680) framework was released to help alleviate some of these issues on Windows 8.1, but starting with **Cordova 5.1.1**, you can now build Windows 10 apps. In addition to supporting the new Windows Universal platform that allows a single code base and app package to be used across a number of different devices, Windows 10 also brings a number of significant improvements to Apache Cordova users.
+
+In particular:
+
+- Elimination of the existing dynamic content restrictions in Windows 8.0 and 8.1.
+- Cordova plugin support for external hosted content through the use of the same &lt;allow-navigation&gt; element used by Android and iOS.
+- Support for the powerful Content Security Policy (CSP) that is also now recommended for use with the Android and iOS Cordova platforms.  See [this article for more details](./cordova-5-security.md).
+- Apps can now run in two different security modes:
+	- Remote mode: The default, flexible security mode that only has a hand full of store submission restrictions.
+	- Local mode: A more secure mode that adds additional protections but disables hosted content and inline script
+
+These improvements mean that the Windows platform now has a flexible model compatible with Cordova platforms like Android and iOS while still providing you the tools you need to secure your app. Check out the [Cordova Windows 10](http://go.microsoft.com/fwlink/?LinkID=617471) documentation for more information on new features.
+
+You can follow these steps to use Cordova Windows 10 with Visual Studio:
+
+1. First, install the [Windows 10 Tools for Visual Studio](http://go.microsoft.com/fwlink/?LinkID=617471) if you have not already.
+
+2. Update your project to Cordova 5.1.1 or higher as described above if you have not done that already.
+
+3. Next, open the config.xml designer by double clicking on config.xml.
+
+4. Click on the "Windows" tab.
+
+5. Change the **Windows Target Version** to **Windows 10.0**.
+
+    ![Select Cordova Version](media/tutorial-cordova-5-readme/cordova-5-8.png)
+
+That's it! Cordova will switch from a Windows 8.1 project to a new Universal App project and take care of the rest! Just use the **Debug** dropdown list to deploy to a Windows 10 device, use your Windows 10 PC, or use a Windows 10 emulator.
+
 <a name="npm"></a>
 ##Primary Cordova Plugin Repository is Now Npm
 
@@ -142,10 +240,10 @@ The config.xml designer in Visual Studio will automatically use the new plugin I
 See [tips and workarounds](../tips-and-workarounds/general/tips-and-workarounds-general-readme.md#plugin-npm) for additional details on adding npm versions of plugins to your project.
 
 ###Cordova Plugin Registry
-As of 7/14/2015, plugins.cordova.io now has two registry sections:
+Plugins.cordova.io now has two registry sections:
 
-- For the time being, the landing page of [plugins.cordova.io](http://go.microsoft.com/fwlink/?LinkID=618599) **does not contain npm sourced plugins** these plugins only work with Cordova 5.0.0+.
-- However, npm sourced plugins can be found on the **new [npm registry section of plugins.cordova.io](http://go.microsoft.com/fwlink/?LinkID=618600)** or you can search npm itself by using the [ecosystem:cordova](http://go.microsoft.com/fwlink/?LinkID=617675) tag.
+- The landing page of [plugins.cordova.io](http://go.microsoft.com/fwlink/?LinkID=618599) **contains only npm sourced plugins** and these plugins only work with Cordova 5.0.0+.
+- Cordova versions less than 6.0.0 can use plugins in [the legacy registry](http://50.17.177.14/). **However,** note that 6.0.0 dropped this support.
 
 	![Npm Plugin Registry](media/tutorial-cordova-5-readme/cordova-5-9.png)
 
@@ -200,73 +298,6 @@ Simply updating to Cordova 5.0.0+ will automatically cause Gradle to be used fro
 		... replacing the Cordova version and plugin name for those that apply to your situation. You can also specify a fully qualified Git URI or filesystem path in place of the plugin name.
 
 	2. If you're able to reproduce the problem, you might want to contact the plugin author and let them know about the it. Before doing so, be sure to check for existing open issues as more than likely there's already one on the plugin author's GitHub site that you can use to provide additional information. Mention that you encountered issues when using Tools for Apache Cordova but include the Cordova CLI repro for the plugin author's benefit. See the [tips and workarounds](../tips-and-workarounds/general/tips-and-workarounds-general-readme.md#plugin-troubleshoot) section of our docs for additional troubleshooting tips.
-
-<a name="crosswalk"></a>
-##Pluggable WebViews and the Crosswalk WebView for Android
-An exciting new development in the Cordova Android platform in Cordova 5 is the support for what are called "pluggable WebViews." What this feature allows you to do is swap out the built in Android WebView with a completely different WebView implementation. This is a significant improvement as the Android browser and thus the WebView is locked at a specific version without the ability to update unless you update the version of the OS on the device. This has changed in the Android OS as of 5.0, but unlike iOS or Windows where devices can opt to upgrade and developers need only concern themselves with a few major versions of the browser, older Android devices are locked at a particular sub-revision of Android (and thus the browser) with no ability to upgrade the device in many cases. The end result has been a vast array of small differences between Android devices.
-
-[Crosswalk](http://go.microsoft.com/fwlink/?LinkID=617678) is a project that is designed to allow developers to embed a very recent and specific version of the Chromium WebView inside their Android app. The Crosswalk WebView can be embedded in apps running on Android 4.0 and up and brings with it the significant advantage of a consistent WebView implementation across all Android device versions it supports.
-
-There is now a [Cordova Crosswalk plugin](http://go.microsoft.com/fwlink/?LinkID=617679) that takes advantage of the new pluggable WebView features in Cordova 5.0.0+ (and the Cordova Android 4.0.0 platform it uses) and makes it simple to add into your project.
-
-*Note: Because using the Crosswalk plugin does slow down build times given its size, we recommend developers start out building apps with the stock Android WebView on a recent device or emulator (Android 4.4+). You can then add the Crosswalk plugin later in your development cycle and make the necessary adjustments.*
-
-###Installing the Crosswalk Plugin from VS
-To use the Crosswalk WebView plugin from Visual Studio, follow these steps:
-
-1. Double click on config.xml in your project.
-
-2. Click on the **Plugins** tab.
-
-2. Select **Crosswalk WebView** and click **Add**.
-
-    ![Add Crosswalk Plugin](media/tutorial-cordova-5-readme/cordova-crosswalk.png)
-
-The next time you build, your app will be running in the Crosswalk WebView. Note that the first build for Android in particular will take a bit given the plugin does some dynamic acquisition.
-
-###Tips on Using the Crosswalk
-If you are using the standard Android Emulator, be sure to check the **Use Host CPU** option in the AVD that you create, and have up-to-date graphics drivers installed on your system, or the app will crash due to Crosswalk's support of WebGL.
-
-![Use Host GPU](media/tutorial-cordova-5-readme/cordova-5-1.png)
-
-Finally, if you encounter a "Could not create the Java Virtual Machine" error, add the following environment variable to your system and restart VS to bump up Java's heap memory:
-
-```
-_JAVA_OPTIONS=-Xmx512M
-```
-
-<a name="win10"></a>
-##Windows 10 Support
-Historically, Windows and Windows Phone 8.1 have had a number of compatibility challenges with Cordova apps due to underlying platform differences around security rules. A [JavaScript compatibility](http://go.microsoft.com/fwlink/?LinkID=617680) framework was released to help alleviate some of these issues on Windows 8.1, but starting with **Cordova 5.1.1**, you can now build Windows 10 apps. In addition to supporting the new Windows Universal platform that allows a single code base and app package to be used across a number of different devices, Windows 10 also brings a number of significant improvements to Apache Cordova users.
-
-In particular:
-
-- Elimination of the existing dynamic content restrictions in Windows 8.0 and 8.1.
-- Cordova plugin support for external hosted content through the use of the same &lt;allow-navigation&gt; element used by Android and iOS.
-- Support for the powerful Content Security Policy (CSP) that is also now recommended for use with the Android and iOS Cordova platforms.  See [this article for more details](./cordova-5-security.md).
-- Apps can now run in two different security modes:
-	- Remote mode: The default, flexible security mode that only has a hand full of store submission restrictions.
-	- Local mode: A more secure mode that adds additional protections but disables hosted content and inline script
-
-These improvements mean that the Windows platform now has a flexible model compatible with Cordova platforms like Android and iOS while still providing you the tools you need to secure your app. Check out the [Cordova Windows 10](http://go.microsoft.com/fwlink/?LinkID=617471) documentation for more information on new features.
-
-You can follow these steps to use Cordova Windows 10 with Visual Studio:
-
-1. First, install the [Windows 10 Tools for Visual Studio](http://go.microsoft.com/fwlink/?LinkID=617471) if you have not already.
-
-2. Update your project to Cordova 5.1.1 as described above if you have not done that already.
-
-3. Now, **build once for Windows** (we're working to eliminate this step in future).
-
-4. Next, open the config.xml designer by double clicking on config.xml.
-
-5. Click on the "Windows" tab.
-
-6. Change the **Windows Target Version** to **Windows 10.0**.
-
-    ![Select Cordova Version](media/tutorial-cordova-5-readme/cordova-5-8.png)
-
-That's it! Cordova will switch from a Windows 8.1 project to a new Universal App project and take care of the rest! Just use the **Debug** dropdown list to deploy to a Windows 10 device, use your Windows 10 PC, or use a Windows 10 emulator.
 
 ## More Information
 * [Learn about security features in Apache Cordova 5](./cordova-5-security.md)

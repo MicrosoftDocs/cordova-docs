@@ -17,6 +17,45 @@ This article covers known issues related to Visual Studio Tools for Apache Cordo
 
 > **Tip**: See [Cordova 5.x.x known issues](known-issues-cordova5.md) for details on Android related issues that are specific to Cordova 5.0.0 and up.
 
+##**Plugin installs fail with a message stating Cordova Android 5.0.0 or higher is required**
+Android Marshmallow introduced new security features that have resulted in breaking changes to Cordova itself and by extension core plugins including:
+
+- cordova-plugin-camera
+- cordova-plugin-geolocation
+- cordova-plugin-contacts
+- cordova-plugin-file
+- cordova-plugin-media
+
+As a result, in general we recommend moving to Cordova 6.0.0 or higher when targeting Android. Installing any of these plugins with an earlier version may result in a message telling you that Cordova Android 5.0.0 or higher is required. Switching to Cordova 6.0.0 will resolve this problem.
+
+If you need to stay on an earlier version of Cordova, you may need to install an earlier version of the plugin from the command line as follows from your project directory:
+
+```
+npm install -g cordova@5.4.1
+cordova plugin add cordova-plugin-camera@^1.2.0
+```
+
+...replacing the Cordova version and camera plugin Id with the appropriate one for your use case.
+
+##**Apps crash in emulators and/or the VS debugger does not attach when using the Crosswalk plugin**
+1. If you run into a problem where the Visual Studio **debugger is not attaching** after adding the Crosswalk plugin, you may be encountering an issue with a recent version of Crosswalk.  Crosswalk version 15 is known to work well and you can force this version to be used with a simple preference. Simply add the following to config.xml by right-clicking on the in file in Visual Studio and selecting **View Code**:
+
+	```
+	<preference name="xwalkVersion" value="org.xwalk:xwalk_core_library:15+" />
+	```
+
+
+2. If you are using the **Visual Studio Android Emulator** and encounter an **app crash** on startup, you may be experiencing an incompatibility with a specific version of Crosswalk being added to your project by the plugin and the emulator. Crosswalk version 15 is known to work well and you can force this version to be used with a simple preference. See #1 for details.
+
+4. If you encounter a "Could not create the Java Virtual Machine" error, add the following environment variable to your system and restart VS to bump up Java's heap memory to at least 512M:
+
+	```
+	_JAVA_OPTIONS=-Xmx512M
+	```
+
+5. Finally, if you are using the standard **Google Android Emulator,** and encounter an **app crash** after adding the Crosswalk plugin, be sure to the **Use Host CPU** option is checked in the AVD that you create, and have up-to-date graphics drivers installed on your system, or the app will crash due to Crosswalk's support of WebGL.
+
+
 ##**Build failures after installing Android SDK Tools 24.3.2**
 
 When building for Android, you may encounter a build error message, "java.io.IOException: Cannot run program", in the Output Window after updating the "Android SDK Tools" to 24.3.2 in the Android SDK manager. This is due to [an Android SDK bug](https://code.google.com/p/android/issues/detail?id=176488) that can cause problems when building any Android app using Apache Ant (including but not limited to Cordova). If you run into problems after updating to 24.3.2 or see the stack trace shown in the [Android SDK bug](https://code.google.com/p/android/issues/detail?id=176488) in the Output Window, you will need to downgrade to a previous release of the SDK Tools (only) as follows:

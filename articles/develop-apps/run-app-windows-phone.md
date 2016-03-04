@@ -50,12 +50,16 @@ Follow these instructions to run your app on a Windows Phone device that is conn
 
 ### To run your app on a device
 
-1. With your app open in Visual Studio, choose **Windows Phone 8** or
+1. Unlock your device for development.
+
+    For Windows Phone 10, see [enable your device for development](https://msdn.microsoft.com/en-us/windows/uwp/get-started/enable-your-device-for-development). For Windows Phone 8, see [get a developer license](https://msdn.microsoft.com/library/windows/apps/hh974578) and [register your phone](https://msdn.microsoft.com/en-us/library/windows/apps/dn614128).
+
+2. With your app open in Visual Studio, choose **Windows Phone 8** or
 **Windows Phone (Universal)** from the **Solution Platforms** list. 	If you don’t see this option, choose **Solution Platforms** from the **Add/Remove Buttons** list to display it.
 
-2.  Choose **Device**.
+3.  Choose **Device**.
 
-3.  Press F5 to start the app.
+4.  Press F5 to start the app.
 	Visual Studio starts the app on the connected Windows Phone device.
 
 ![Download the tools](media/run-app-windows-phone/run-windows-phone-download-link.png) [Get the Visual Studio Tools for Apache Cordova](http://aka.ms/mchm38) or [learn more](https://www.visualstudio.com/cordova-vs.aspx)
